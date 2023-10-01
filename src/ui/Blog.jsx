@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -17,14 +17,18 @@ const StyledBlog = styled.article`
 
   margin-bottom: 2.4rem;
   break-inside: avoid;
-
-  /* height: fit-content; */
 `;
 
 const BlogImage = styled.div`
   transition: all 0.3s;
   overflow: hidden;
   position: relative;
+
+  ${(props) =>
+    props.fullimage === true &&
+    css`
+      height: 50rem;
+    `}
 
   &::after {
     content: "";
@@ -138,10 +142,10 @@ const BlogLikes = styled.div`
   }
 `;
 
-export default function Blog({ blog }) {
+export default function Blog({ blog, fixedSizeImg = false }) {
   return (
     <StyledBlog>
-      <BlogImage>
+      <BlogImage fullimage={fixedSizeImg}>
         <img src={blog.img} alt={blog.title} />
       </BlogImage>
       <BlogBody>
