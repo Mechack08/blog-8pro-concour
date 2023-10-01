@@ -3,3 +3,9 @@ export function subString(string) {
 
   return subString + "...";
 }
+
+export function getSomeElemetsOfArray(array, max) {
+  const newArray = array.slice(0, max);
+
+  return newArray;
+}
