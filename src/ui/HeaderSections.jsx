@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Titles from "./Titles";
+import { useRevealContents } from "../hooks/useRevealContents";
 
 const SyledHeaderSections = styled.div`
   display: flex;
@@ -10,6 +11,17 @@ const SyledHeaderSections = styled.div`
   a {
     color: var(--color-primary-0);
   }
+
+  transform: translateX(-8rem);
+  opacity: 0;
+  transition: all 0.6s ease-out;
+
+  ${(props) =>
+    props.visible &&
+    css`
+      transform: translateX(0);
+      opacity: 1;
+    `}
 `;
 
 const TitlesWraper = styled.div`
@@ -19,8 +31,14 @@ const TitlesWraper = styled.div`
 `;
 
 export default function HeaderSections({ titles, color, size }) {
+  const { isVisible, containerRef } = useRevealContents({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  });
+
   return (
-    <SyledHeaderSections>
+    <SyledHeaderSections ref={containerRef} visible={isVisible}>
       <TitlesWraper>
         <Titles color={color} size={size}>
           {titles.main}

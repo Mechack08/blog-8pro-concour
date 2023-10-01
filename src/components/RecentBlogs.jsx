@@ -1,11 +1,13 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Titles from "../ui/Titles";
 import Blog from "../ui/Blog";
 import { blogs } from "../data/blogs";
 import Button from "../ui/Button";
+import { useRevealContents } from "../hooks/useRevealContents";
 
 const StyledRecentBlog = styled.section`
   padding-top: 9.6rem;
+  transition: 0.4s ease-in-out;
 `;
 
 const TitlesWrapper = styled.div`
@@ -17,14 +19,21 @@ const TitlesWrapper = styled.div`
   h2 {
     color: var(--color-text);
   }
+
+  /* Reveal on scroll */
+  transform: translateY(2rem);
+  opacity: 0;
+  transition: all 0.6s ease-in-out;
+
+  ${(props) =>
+    props.visible &&
+    css`
+      opacity: 1;
+      transform: translateY(0);
+    `}
 `;
 
 const Blogs = styled.div`
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
-  gap: 2.4rem;
-  margin-top: 6.4rem; */
-
   margin-top: 6.4rem;
   columns: 3;
   column-gap: 2.4rem;
@@ -38,9 +47,15 @@ const RecentBlogButtonWrapper = styled.div`
 `;
 
 export default function RecentBlogs() {
+  const { isVisible, containerRef } = useRevealContents({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  });
+
   return (
-    <StyledRecentBlog>
-      <TitlesWrapper>
+    <StyledRecentBlog ref={containerRef}>
+      <TitlesWrapper visible={isVisible}>
         <Titles size="big" as="h2">
           Recent Blogs
         </Titles>
@@ -52,7 +67,7 @@ export default function RecentBlogs() {
         ))}
       </Blogs>
       <RecentBlogButtonWrapper>
-        <Button type="primary">Discover more</Button>
+        {isVisible && <Button type="primary">Discover more</Button>}
       </RecentBlogButtonWrapper>
     </StyledRecentBlog>
   );

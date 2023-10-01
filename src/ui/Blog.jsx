@@ -8,6 +8,7 @@ import {
   FaTwitter,
 } from "react-icons/fa6";
 import { subString } from "../utils/utils";
+import { useRevealContents } from "../hooks/useRevealContents";
 
 const StyledBlog = styled.article`
   background-color: var(--color-white);
@@ -17,6 +18,17 @@ const StyledBlog = styled.article`
 
   margin-bottom: 2.4rem;
   break-inside: avoid;
+
+  transform: translateY(8rem);
+  opacity: 0;
+  transition: all 0.96s ease-out;
+
+  ${(props) =>
+    props.visible &&
+    css`
+      transform: translateY(0);
+      opacity: 1;
+    `}
 `;
 
 const BlogImage = styled.div`
@@ -149,8 +161,14 @@ const BlogLikes = styled.div`
 `;
 
 export default function Blog({ blog, fixedSizeImg = false, height }) {
+  const { isVisible, containerRef } = useRevealContents({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  });
+
   return (
-    <StyledBlog>
+    <StyledBlog ref={containerRef} visible={isVisible}>
       <BlogImage fullimage={fixedSizeImg} height={height}>
         <img src={blog.img} alt={blog.title} />
       </BlogImage>

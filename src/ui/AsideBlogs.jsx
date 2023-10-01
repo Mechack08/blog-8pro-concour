@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { useRevealContents } from "../hooks/useRevealContents";
 
 const StyledAsideBlogs = styled.div`
   display: flex;
@@ -8,6 +9,17 @@ const StyledAsideBlogs = styled.div`
   &:not(:last-child) {
     margin-bottom: 3.2rem;
   }
+
+  transform: translateX(5rem);
+  opacity: 0;
+  transition: all 0.6s;
+
+  ${(props) =>
+    props.visible &&
+    css`
+      transform: translateX(0);
+      opacity: 1;
+    `}
 `;
 
 const ImageWrapper = styled.div`
@@ -53,8 +65,14 @@ const BlogPublish = styled.div`
 const Details = styled.div``;
 
 export default function AsideBlogs({ blog }) {
+  const { isVisible, containerRef } = useRevealContents({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  });
+
   return (
-    <StyledAsideBlogs>
+    <StyledAsideBlogs ref={containerRef} visible={isVisible}>
       <ImageWrapper>
         <img src={blog.img} alt="" />
       </ImageWrapper>

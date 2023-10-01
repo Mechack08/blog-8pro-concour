@@ -8,7 +8,11 @@ import FashionBlogs from "../components/FashionBlogs";
 import TripBlogs from "../components/TripBlogs";
 import Footer from "../components/Footer";
 
-const StyledHome = styled.main``;
+const StyledHome = styled.main`
+  overflow: hidden;
+
+  position: relative;
+`;
 
 const BlogsByCategory = styled.main`
   background-color: var(--color-white);
@@ -32,7 +36,7 @@ export default function Home() {
       </BlogsByCategory>
       <Footer>
         <p>8pro. Alrights Reserved.</p>
-        <p>Concour</p>
+        <p>Concour #8</p>
       </Footer>
     </StyledHome>
   );

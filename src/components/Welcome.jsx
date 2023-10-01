@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import BannerImg from "../assets/kellen-riggin-TzNFf-RYW94-unsplash.jpg";
 import Titles from "../ui/Titles";
+import { useRevealContents } from "../hooks/useRevealContents";
 
 const StyledWelcome = styled.div`
   width: 100%;
@@ -20,6 +21,17 @@ const Overlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  opacity: 0;
+  transform: scale(0.64);
+  transition: all 0.6s ease-in-out;
+
+  ${(props) =>
+    props.visible &&
+    css`
+      opacity: 1;
+      transform: scale(1);
+    `}
 `;
 
 const Text = styled.div`
@@ -31,10 +43,16 @@ const Text = styled.div`
 `;
 
 export default function Welcome() {
+  const { isVisible, containerRef } = useRevealContents({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.5,
+  });
+
   return (
     <StyledWelcome>
       <img src={BannerImg} alt="banner" />
-      <Overlay>
+      <Overlay ref={containerRef} visible={isVisible}>
         <Text>
           <Titles size="bigest">Get the best blogs ever.</Titles>
           <p>Run deep into the power of reading & get inspired</p>

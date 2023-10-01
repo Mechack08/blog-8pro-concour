@@ -1,14 +1,23 @@
 /* eslint-disable react/prop-types */
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { subString } from "../utils/utils";
+import { useRevealContents } from "../hooks/useRevealContents";
 
 const StyledBlogHorizontal = styled.div`
-  /* display: flex;
-  gap: 2.4rem; */
-
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(45rem, 1fr));
   gap: 2.4rem;
+
+  transform: translateY(8rem);
+  opacity: 0;
+  transition: all 0.8s ease-in-out;
+
+  ${(props) =>
+    props.visible &&
+    css`
+      transform: translateY(0);
+      opacity: 1;
+    `}
 `;
 
 const ImageWrapper = styled.div`
@@ -65,8 +74,14 @@ const Discover = styled.div`
 `;
 
 export default function BlogHorizontal({ blog }) {
+  const { isVisible, containerRef } = useRevealContents({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  });
+
   return (
-    <StyledBlogHorizontal>
+    <StyledBlogHorizontal ref={containerRef} visible={isVisible}>
       <ImageWrapper>
         <img src={blog.img} alt={blog.title} />
       </ImageWrapper>
