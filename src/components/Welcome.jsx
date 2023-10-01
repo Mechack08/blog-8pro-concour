@@ -5,8 +5,9 @@ import { useRevealContents } from "../hooks/useRevealContents";
 
 const StyledWelcome = styled.div`
   width: 100%;
-  height: 56rem;
+  height: 64rem;
   position: relative;
+  margin-top: 8rem;
 `;
 
 const Overlay = styled.div`

@@ -10,8 +10,6 @@ import Footer from "../components/Footer";
 
 const StyledHome = styled.main`
   overflow: hidden;
-
-  position: relative;
 `;
 
 const BlogsByCategory = styled.main`

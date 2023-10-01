@@ -1,7 +1,6 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Menus from "./Menus";
 import Icons from "./Icons";
-import { useRevealContents } from "../hooks/useRevealContents";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -11,21 +10,11 @@ const StyledHeader = styled.header`
   background-color: var(--color-white);
   border-bottom: 1px solid var(--color-text-2);
 
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 1000;
-
-  opacity: 0;
-  transform: scale(0.64);
-  transition: all 0.6s ease-in-out;
-
-  ${(props) =>
-    props.visible &&
-    css`
-      opacity: 1;
-      transform: scale(1);
-    `}
 `;
 
 const Logo = styled.span`
@@ -48,14 +37,8 @@ const Logo = styled.span`
 `;
 
 export default function Header() {
-  const { isVisible, containerRef } = useRevealContents({
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.5,
-  });
-
   return (
-    <StyledHeader ref={containerRef} visible={isVisible}>
+    <StyledHeader>
       <Logo>8pro</Logo>
       <Menus />
       <Icons />
