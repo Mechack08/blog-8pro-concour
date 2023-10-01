@@ -30,6 +30,12 @@ const BlogImage = styled.div`
       height: 50rem;
     `}
 
+  ${(props) =>
+    props.height &&
+    css`
+      height: ${props.height};
+    `}
+
   &::after {
     content: "";
     width: 100%;
@@ -142,10 +148,10 @@ const BlogLikes = styled.div`
   }
 `;
 
-export default function Blog({ blog, fixedSizeImg = false }) {
+export default function Blog({ blog, fixedSizeImg = false, height }) {
   return (
     <StyledBlog>
-      <BlogImage fullimage={fixedSizeImg}>
+      <BlogImage fullimage={fixedSizeImg} height={height}>
         <img src={blog.img} alt={blog.title} />
       </BlogImage>
       <BlogBody>

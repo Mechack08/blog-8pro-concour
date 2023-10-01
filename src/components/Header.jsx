@@ -8,7 +8,12 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   padding: 1.8rem 6.4rem;
   background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-text-0);
+  border-bottom: 1px solid var(--color-text-2);
+
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 `;
 
 const Logo = styled.span`
