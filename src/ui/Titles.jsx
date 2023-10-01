@@ -26,6 +26,18 @@ const Titles = styled.h1`
       font-size: 1.6rem;
       letter-spacing: 0.8px;
     `}
+
+    ${(props) =>
+    props.color === "dark" &&
+    css`
+      color: var(--color-text);
+    `}
+
+    ${(props) =>
+    props.color === "light" &&
+    css`
+      color: var(--color-white);
+    `}
 `;
 
 export default Titles;
