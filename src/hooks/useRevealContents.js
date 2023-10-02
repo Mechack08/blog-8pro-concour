@@ -14,13 +14,9 @@ export function useRevealContents(options) {
       const observer = new IntersectionObserver(callbackFuction, options);
       if (containerRef.current) observer.observe(containerRef.current);
 
-      const currentContainerRef = containerRef.current;
-
-      return () => {
-        if (currentContainerRef) observer.unobserve(currentContainerRef);
-      };
+      return () => observer.disconnect();
     },
-    [options, containerRef]
+    [options]
   );
 
   return { isVisible, containerRef };
