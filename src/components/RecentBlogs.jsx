@@ -47,15 +47,11 @@ const RecentBlogButtonWrapper = styled.div`
 `;
 
 export default function RecentBlogs() {
-  const { isVisible, containerRef } = useRevealContents({
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.1,
-  });
+  const { targetRef, isVisible } = useRevealContents(0.1, true);
 
   return (
-    <StyledRecentBlog ref={containerRef}>
-      <TitlesWrapper visible={isVisible}>
+    <StyledRecentBlog>
+      <TitlesWrapper visible={isVisible} ref={targetRef}>
         <Titles size="big" as="h2">
           Recent Blogs
         </Titles>

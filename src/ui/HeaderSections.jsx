@@ -31,14 +31,10 @@ const TitlesWraper = styled.div`
 `;
 
 export default function HeaderSections({ titles, color, size }) {
-  const { isVisible, containerRef } = useRevealContents({
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.1,
-  });
+  const { targetRef, isVisible } = useRevealContents(0.1, true);
 
   return (
-    <SyledHeaderSections ref={containerRef} visible={isVisible}>
+    <SyledHeaderSections ref={targetRef} visible={isVisible}>
       <TitlesWraper>
         <Titles color={color} size={size}>
           {titles.main}

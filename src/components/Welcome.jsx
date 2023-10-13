@@ -44,16 +44,12 @@ const Text = styled.div`
 `;
 
 export default function Welcome() {
-  const { isVisible, containerRef } = useRevealContents({
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.5,
-  });
+  const { targetRef, isVisible } = useRevealContents(0.5, true);
 
   return (
     <StyledWelcome>
       <img src={BannerImg} alt="banner" />
-      <Overlay ref={containerRef} visible={isVisible}>
+      <Overlay ref={targetRef} visible={isVisible}>
         <Text>
           <Titles size="bigest">Get the best blogs ever.</Titles>
           <p>Run deep into the power of reading & get inspired</p>

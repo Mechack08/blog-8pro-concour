@@ -74,14 +74,10 @@ const Discover = styled.div`
 `;
 
 export default function BlogHorizontal({ blog }) {
-  const { isVisible, containerRef } = useRevealContents({
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.1,
-  });
+  const { targetRef, isVisible } = useRevealContents(0.1, true);
 
   return (
-    <StyledBlogHorizontal ref={containerRef} visible={isVisible}>
+    <StyledBlogHorizontal ref={targetRef} visible={isVisible}>
       <ImageWrapper>
         <img src={blog.img} alt={blog.title} />
       </ImageWrapper>

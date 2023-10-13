@@ -1,23 +1,36 @@
 import { useEffect, useRef, useState } from "react";
 
-export function useRevealContents(options) {
-  const containerRef = useRef();
+// export function useRevealContents(threshold, onIntersect, disableOnIntersect) {
+export function useRevealContents(threshold, disableOnIntersect) {
   const [isVisible, setIsVisible] = useState(false);
+  const targetRef = useRef(null);
 
-  function callbackFuction(entries) {
-    const [entry] = entries;
-    setIsVisible(entry.isIntersecting);
-  }
+  useEffect(() => {
+    const target = targetRef.current;
+    if (!target) return;
 
-  useEffect(
-    function () {
-      const observer = new IntersectionObserver(callbackFuction, options);
-      if (containerRef.current) observer.observe(containerRef.current);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // onIntersect();
+            setIsVisible(true);
 
-      return () => observer.disconnect();
-    },
-    [options]
-  );
+            if (disableOnIntersect) {
+              observer.unobserve(target);
+            }
+          }
+        });
+      },
+      { threshold }
+    );
 
-  return { isVisible, containerRef };
+    observer.observe(target);
+
+    return () => {
+      observer.unobserve(target);
+    };
+  }, [disableOnIntersect, threshold]);
+
+  return { targetRef, isVisible };
 }

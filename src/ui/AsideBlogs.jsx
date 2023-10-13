@@ -65,14 +65,10 @@ const BlogPublish = styled.div`
 const Details = styled.div``;
 
 export default function AsideBlogs({ blog }) {
-  const { isVisible, containerRef } = useRevealContents({
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.1,
-  });
+  const { targetRef, isVisible } = useRevealContents(0.5, true);
 
   return (
-    <StyledAsideBlogs ref={containerRef} visible={isVisible}>
+    <StyledAsideBlogs ref={targetRef} visible={isVisible}>
       <ImageWrapper>
         <img src={blog.img} alt="" />
       </ImageWrapper>

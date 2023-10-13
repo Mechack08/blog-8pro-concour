@@ -161,14 +161,10 @@ const BlogLikes = styled.div`
 `;
 
 export default function Blog({ blog, fixedSizeImg = false, height }) {
-  const { isVisible, containerRef } = useRevealContents({
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.1,
-  });
+  const { targetRef, isVisible } = useRevealContents(0.1, true);
 
   return (
-    <StyledBlog ref={containerRef} visible={isVisible}>
+    <StyledBlog ref={targetRef} visible={isVisible}>
       <BlogImage fullimage={fixedSizeImg} height={height}>
         <img src={blog.img} alt={blog.title} />
       </BlogImage>
